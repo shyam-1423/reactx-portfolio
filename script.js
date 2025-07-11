@@ -97,7 +97,9 @@ document.querySelectorAll(".nav-link").forEach((link) => {
     }
 
     // Remove active class from all links, add to clicked link
-    document.querySelectorAll(".nav-link").forEach((l) => l.classList.remove("active"));
+    document
+      .querySelectorAll(".nav-link")
+      .forEach((l) => l.classList.remove("active"));
     link.classList.add("active");
   });
 });
@@ -118,7 +120,6 @@ document.querySelector('.nav-link[href="#Home"]').classList.add("active");
 
 // Fade in elements when scrolling
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const cards = document.querySelectorAll(".experience-card");
 
@@ -132,8 +133,13 @@ document.addEventListener("DOMContentLoaded", function () {
           entry.target.classList.add("visible");
 
           // Optional: Once all cards are visible, we can show scrollbar again
-          if (document.querySelectorAll(".experience-card.visible").length === cards.length) {
-            document.querySelector(".container").classList.remove("hide-scrollbar");
+          if (
+            document.querySelectorAll(".experience-card.visible").length ===
+            cards.length
+          ) {
+            document
+              .querySelector(".container")
+              .classList.remove("hide-scrollbar");
           }
         }
       });
@@ -176,24 +182,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Show scrollbar after all animations are likely complete
     setTimeout(() => {
       document.querySelector(".container").classList.remove("hide-scrollbar");
-    }, 1000 + (cards.length * 100)); // Base time + time per card
+    }, 1000 + cards.length * 100); // Base time + time per card
   }
 });
 
-
 // Smooth scrolling for links (if any are added later)
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    target.scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector(link.getAttribute("href"));
+    target.scrollIntoView({ behavior: "smooth" });
   });
 });
 
 // Accurate icon orbit animation
-const icons = document.querySelectorAll('.icons foreignObject');
-const svg = document.querySelector('svg');
-const orbits = document.querySelectorAll('.orbit-path');
+const icons = document.querySelectorAll(".icons foreignObject");
+const svg = document.querySelector("svg");
+const orbits = document.querySelectorAll(".orbit-path");
 const viewBoxWidth = 1200;
 const viewBoxHeight = 400;
 
@@ -203,37 +208,43 @@ function updateOrbits() {
   const scaleY = svgRect.height / viewBoxHeight;
 
   icons.forEach((icon, index) => {
-    const orbitIndex = parseInt(icon.getAttribute('data-orbit'));
+    const orbitIndex = parseInt(icon.getAttribute("data-orbit"));
     const ellipse = orbits[orbitIndex];
-    const cx = parseFloat(ellipse.getAttribute('cx'));
-    const cy = parseFloat(ellipse.getAttribute('cy'));
-    let rx = parseFloat(ellipse.getAttribute('rx'));
-    let ry = parseFloat(ellipse.getAttribute('ry'));
+    const cx = parseFloat(ellipse.getAttribute("cx"));
+    const cy = parseFloat(ellipse.getAttribute("cy"));
+    let rx = parseFloat(ellipse.getAttribute("rx"));
+    let ry = parseFloat(ellipse.getAttribute("ry"));
 
     // Adjust radii based on current animation state
     const rxAnim = ellipse.querySelector('animate[attributeName="rx"]');
     const ryAnim = ellipse.querySelector('animate[attributeName="ry"]');
-    const rxValues = rxAnim.getAttribute('values').split(';').map(Number);
-    const ryValues = ryAnim.getAttribute('values').split(';').map(Number);
-    const animProgress = (Date.now() % (parseFloat(rxAnim.getAttribute('dur')) * 1000)) / (parseFloat(rxAnim.getAttribute('dur')) * 1000);
-    rx = rxValues[0] + (rxValues[1] - rxValues[0]) * Math.sin(animProgress * Math.PI * 2);
-    ry = ryValues[0] + (ryValues[1] - ryValues[0]) * Math.sin(animProgress * Math.PI * 2);
+    const rxValues = rxAnim.getAttribute("values").split(";").map(Number);
+    const ryValues = ryAnim.getAttribute("values").split(";").map(Number);
+    const animProgress =
+      (Date.now() % (parseFloat(rxAnim.getAttribute("dur")) * 1000)) /
+      (parseFloat(rxAnim.getAttribute("dur")) * 1000);
+    rx =
+      rxValues[0] +
+      (rxValues[1] - rxValues[0]) * Math.sin(animProgress * Math.PI * 2);
+    ry =
+      ryValues[0] +
+      (ryValues[1] - ryValues[0]) * Math.sin(animProgress * Math.PI * 2);
 
     const angleOffset = (index / icons.length) * 360;
-    const speed = 0.3 - (orbitIndex * 0.05);
+    const speed = 0.3 - orbitIndex * 0.05;
 
     function animateIcon() {
       const time = Date.now() * 0.001 * speed;
-      const angle = angleOffset + time * 180 / Math.PI;
-      const theta = angle * Math.PI / 180;
+      const angle = angleOffset + (time * 180) / Math.PI;
+      const theta = (angle * Math.PI) / 180;
 
       // Calculate position on ellipse
       const x = cx + rx * Math.cos(theta);
       const y = cy + ry * Math.sin(theta);
 
       // Center the icon
-      icon.setAttribute('x', x - 12);
-      icon.setAttribute('y', y - 12);
+      icon.setAttribute("x", x - 12);
+      icon.setAttribute("y", y - 12);
 
       requestAnimationFrame(animateIcon);
     }
@@ -244,27 +255,27 @@ function updateOrbits() {
 
 // Initial call and resize listener
 updateOrbits();
-window.addEventListener('resize', updateOrbits);
+window.addEventListener("resize", updateOrbits);
 
-// Back to Top Button Logic 
-const backToTopButton = document.getElementById('back-to-top');
+// Back to Top Button Logic
+const backToTopButton = document.getElementById("back-to-top");
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) { // Show button after scrolling 300px
-    backToTopButton.classList.add('visible');
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    // Show button after scrolling 300px
+    backToTopButton.classList.add("visible");
   } else {
-    backToTopButton.classList.remove('visible');
+    backToTopButton.classList.remove("visible");
   }
 });
 
-backToTopButton.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+backToTopButton.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-
 // Get the view more button and all experience cards
-const viewMoreBtn = document.querySelector('.ViewMore');
-const experienceCards = document.querySelectorAll('.experience-card');
+const viewMoreBtn = document.querySelector(".ViewMore");
+const experienceCards = document.querySelectorAll(".experience-card");
 
 // Set initial number of visible cards and increment
 const initialVisibleCards = 4;
@@ -273,35 +284,35 @@ const cardsToShow = 4;
 // Hide cards beyond initial visible count
 experienceCards.forEach((card, index) => {
   if (index >= initialVisibleCards) {
-    card.style.display = 'none';
+    card.style.display = "none";
   } else {
-    card.classList.remove('hidden');
+    card.classList.remove("hidden");
   }
 });
 
 // Add click event listener to the button
-viewMoreBtn.addEventListener('click', function () {
+viewMoreBtn.addEventListener("click", function () {
   let hiddenCards = Array.from(experienceCards).filter(
-    card => card.style.display === 'none'
+    (card) => card.style.display === "none"
   );
 
   // Show next batch of cards
-  hiddenCards.slice(0, cardsToShow).forEach(card => {
-    card.style.display = '';
-    card.classList.remove('hidden');
+  hiddenCards.slice(0, cardsToShow).forEach((card) => {
+    card.style.display = "";
+    card.classList.remove("hidden");
 
     // Add fade-in animation
-    card.style.animation = 'fadeIn 0.5s ease-in';
+    card.style.animation = "fadeIn 0.5s ease-in";
   });
 
   // Hide button if no more cards to show
   if (hiddenCards.length <= cardsToShow) {
-    viewMoreBtn.style.display = 'none';
+    viewMoreBtn.style.display = "none";
   }
 });
 
 // Add CSS animation
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
@@ -310,41 +321,41 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const testimonials = [
     {
-      name: "John Doe",
+      name: "Heet Modh",
       position: "Faculty Member",
       quote:
         "Shyam is a highly skilled frontend developer with a keen eye for design and responsiveness. His work is both functional and visually appealing.",
-      link: "#john"
+      link: "#john",
     },
     {
-      name: "Sarah Smith",
+      name: "Deblina Maji",
       position: "Team Leader",
       quote:
         "Shyam's expertise in HTML, CSS, jQuery, and Bootstrap ensures smooth, responsive, and dynamic web experiences.",
-      link: "#sarah"
+      link: "#sarah",
     },
     {
-      name: "Michael Brown",
+      name: "Dhavl Baria",
       position: "Teammate",
       quote:
         "Creative, detail-oriented, and efficient—Shyam brings innovative solutions to every project he works on.",
-      link: "#michael"
+      link: "#michael",
     },
     {
       name: "Emily Jones",
       position: "Client",
       quote:
         "Shyam is a problem-solver who delivers high-quality, maintainable code while ensuring excellent user experience.",
-      link: "#emily"
+      link: "#emily",
     },
   ];
 
   const wrapper = document.querySelector(".slides-wrapper");
-  const container = document.querySelector(".slider-container") || wrapper.parentElement;
+  const container =
+    document.querySelector(".slider-container") || wrapper.parentElement;
 
   const createSlide = (testimonial, index) => {
     return `
@@ -376,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add necessary inline styles for links
     const links = wrapper.querySelectorAll(".testimonial-link");
-    links.forEach(link => {
+    links.forEach((link) => {
       link.style.textDecoration = "none";
       link.style.color = "inherit";
       link.style.display = "block";
@@ -400,7 +411,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateSliderDimensions() {
     return {
       slideWidth: getSlideWidth(),
-      gap: getGapSize()
+      gap: getGapSize(),
     };
   }
 
@@ -492,7 +503,7 @@ document.addEventListener("DOMContentLoaded", function () {
     pauseAutoSlide();
 
     // Detect if it's a touch or mouse event
-    startPositionX = event.type.includes('mouse')
+    startPositionX = event.type.includes("mouse")
       ? event.clientX
       : event.touches[0].clientX;
 
@@ -501,10 +512,10 @@ document.addEventListener("DOMContentLoaded", function () {
     animationID = requestAnimationFrame(animation);
 
     // Change cursor style
-    wrapper.style.cursor = 'grabbing';
+    wrapper.style.cursor = "grabbing";
 
     // Prevent default behavior for mousedown (text selection, etc)
-    if (event.type.includes('mouse')) {
+    if (event.type.includes("mouse")) {
       event.preventDefault();
     }
 
@@ -521,7 +532,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Get current position
-    const currentPositionX = event.type.includes('mouse')
+    const currentPositionX = event.type.includes("mouse")
       ? event.clientX
       : event.touches[0].clientX;
 
@@ -542,7 +553,7 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.dataset.dragEnd = Date.now().toString();
 
     // Reset cursor
-    wrapper.style.cursor = 'grab';
+    wrapper.style.cursor = "grab";
 
     // Calculate how far we dragged as a percentage of slide width
     const { slideWidth } = updateSliderDimensions();
@@ -583,30 +594,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Handle click events
-  wrapper.addEventListener('click', function (event) {
+  wrapper.addEventListener("click", function (event) {
     // If this was a drag that ended recently, prevent the click
-    const dragStart = parseInt(wrapper.dataset.dragStart || '0');
-    const dragEnd = parseInt(wrapper.dataset.dragEnd || '0');
+    const dragStart = parseInt(wrapper.dataset.dragStart || "0");
+    const dragEnd = parseInt(wrapper.dataset.dragEnd || "0");
     const now = Date.now();
 
-    // If the drag just ended very recently (within 300ms), this is likely an 
+    // If the drag just ended very recently (within 300ms), this is likely an
     // unintended click resulting from a drag, so prevent it
-    if (dragEnd > 0 && (now - dragEnd) < 300) {
+    if (dragEnd > 0 && now - dragEnd < 300) {
       event.preventDefault();
       event.stopPropagation();
       return false;
     }
 
     // Otherwise, allow the click to navigate if it's on a link
-    if (event.target.tagName === 'A' || event.target.closest('a')) {
+    if (event.target.tagName === "A" || event.target.closest("a")) {
       // Normal link click - allow default behavior
       return true;
     }
 
     // For clicks on the card that aren't links, go to the slide's link
-    const slide = event.target.closest('.slide');
+    const slide = event.target.closest(".slide");
     if (slide) {
-      const link = slide.querySelector('a');
+      const link = slide.querySelector("a");
       if (link && link.href) {
         window.location.href = link.href;
         event.preventDefault();
@@ -615,23 +626,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Mouse events with passive: false to prevent default scrolling
-  wrapper.addEventListener('mousedown', dragStart);
-  wrapper.addEventListener('mousemove', dragMove);
-  wrapper.addEventListener('mouseup', dragEnd);
-  wrapper.addEventListener('mouseleave', dragEnd);
+  wrapper.addEventListener("mousedown", dragStart);
+  wrapper.addEventListener("mousemove", dragMove);
+  wrapper.addEventListener("mouseup", dragEnd);
+  wrapper.addEventListener("mouseleave", dragEnd);
 
   // Touch events
-  wrapper.addEventListener('touchstart', dragStart, { passive: true });
-  wrapper.addEventListener('touchmove', dragMove, { passive: false });
-  wrapper.addEventListener('touchend', dragEnd);
+  wrapper.addEventListener("touchstart", dragStart, { passive: true });
+  wrapper.addEventListener("touchmove", dragMove, { passive: false });
+  wrapper.addEventListener("touchend", dragEnd);
 
   // Initial setup
   updateSlides(true);
   startAutoSlide();
 
   // Set initial grab cursor
-  wrapper.style.cursor = 'grab';
+  wrapper.style.cursor = "grab";
 
   // Add necessary inline styles to wrapper for dragging
-  wrapper.style.userSelect = 'none';
+  wrapper.style.userSelect = "none";
 });

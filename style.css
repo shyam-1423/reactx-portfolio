@@ -19,7 +19,6 @@
 
 body {
     font-family: "Rubik", serif;
-
     background-color: #251043 !important;
     background: linear-gradient(90deg, #1b0b32, #1e0833, #170333);
     user-select: none;
@@ -182,9 +181,9 @@ body {
 /* Navbar Link Styling */
 .navbar-nav .nav-link {
     color: #fff !important;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 10px 18px;
     margin: 0 5px;
     transition: all 0.3s ease-in-out;
     position: relative;
@@ -607,6 +606,15 @@ foreignObject:hover i {
 
 /* Tablet Screens */
 @media (max-width: 768px) {
+
+    .cursor-big {
+        display: none;
+    }
+
+    .cursor-small {
+        display: none;
+    }
+
     .svg-container {
         height: 350px;
     }
@@ -630,6 +638,14 @@ foreignObject:hover i {
 
 /* Large Mobile Screens */
 @media (max-width: 640px) {
+    .cursor-big {
+        display: none;
+    }
+
+    .cursor-small {
+        display: none;
+    }
+
     .svg-container {
         height: 270px;
     }
@@ -653,6 +669,14 @@ foreignObject:hover i {
 
 /* Medium Mobile Screens */
 @media (max-width: 480px) {
+    .cursor-big {
+        display: none;
+    }
+
+    .cursor-small {
+        display: none;
+    }
+
     .svg-container {
         height: 255px;
         /* width: 100% !important; */
@@ -678,6 +702,14 @@ foreignObject:hover i {
 
 /* Small Mobile Screens */
 @media (max-width: 375px) {
+    .cursor-big {
+        display: none;
+    }
+
+    .cursor-small {
+        display: none;
+    }
+
     .svg-container {
         height: 255px;
         width: 100% !important;
@@ -705,6 +737,14 @@ foreignObject:hover i {
 
 /* Extra Small Mobile Screens */
 @media (max-width: 320px) {
+    .cursor-big {
+        display: none;
+    }
+
+    .cursor-small {
+        display: none;
+    }
+
     .svg-container {
         height: 240px;
         width: 500px !important;
@@ -818,8 +858,8 @@ foreignObject:hover i {
 
 /* Resume Button */
 .GitHubAndResume #Resume {
-    border: 2px solid #ffffff;
-    background-color: rgba(37, 16, 67, 0.9);
+    border: none;
+    background-color: #2d0465e6;
     backdrop-filter: blur(10px);
     font-size: clamp(16px, 2vw, 21px);
     font-weight: bold;
@@ -830,13 +870,72 @@ foreignObject:hover i {
     cursor: none;
     position: relative;
     overflow: hidden;
+    z-index: 1;
+}
+
+/* One direction orbiting gradient border */
+.GitHubAndResume #Resume::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            transparent 45deg,
+            #371178 90deg,
+            #5623ad 110deg,
+            #6932c8 130deg,
+            #773eda 150deg,
+            transparent 180deg,
+            transparent 360deg);
+    border-radius: 12px;
+    animation: orbitClockwise 3s linear infinite;
+    z-index: -1;
+}
+
+/* Inner background - covers the moving gradient */
+.GitHubAndResume #Resume::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #2d0465e6;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+@keyframes orbitClockwise {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .GitHubAndResume #Resume:hover {
-    background: linear-gradient(135deg, #3e1b6a, #5b2a8f);
-    border-color: #d3b8ff;
+    background: linear-gradient(135deg, #380e6c, #5b2a8f);
     color: #ffffff;
-    box-shadow: 0px 0px 15px rgba(211, 184, 255, 0.5);
+    box-shadow: 0px 0px 20px rgba(41, 1, 104, 0.5);
+}
+
+.GitHubAndResume #Resume:hover::before {
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            transparent 30deg,
+            #6627ca 75deg,
+            #7540ca 90deg,
+            #7e48d6 105deg,
+            #8950e4 120deg,
+            #9157ee 135deg,
+            #9863f5 150deg,
+            transparent 180deg,
+            transparent 360deg);
+    animation: orbitClockwise 2s linear infinite;
+}
+
+.GitHubAndResume #Resume:hover::after {
+    background: linear-gradient(135deg, #3e1b6a, #5b2a8f);
+    inset: 2px;
 }
 
 /* Buttons responsiveness */
@@ -884,6 +983,38 @@ p {
     font-size: 18px;
     color: #ffffff;
     line-height: 1.6;
+}
+
+.shiny-underline {
+    font-family: 'Preahvihear', sans-serif;
+    position: relative;
+    display: inline-block;
+    color: inherit;
+}
+
+.shiny-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            #6742be,
+            transparent);
+    background-size: 200% 100%;
+    animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* Skills Section */
@@ -1499,13 +1630,65 @@ p {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    border: 1px solid#2d0b45;
+    border: 1px solid #2d0b45;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     cursor: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated border effect */
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1px;
+    background: linear-gradient(45deg,
+            transparent,
+            transparent,
+            #2d0b45ac,
+            #541383,
+            #591c84,
+            #590a92,
+            #61129a,
+            transparent,
+            transparent);
+    background-size: 600% 600%;
+    animation: borderSpin 7s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+}
+
+@keyframes borderSpin {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    25% {
+        background-position: 100% 0%;
+    }
+
+    50% {
+        background-position: 200% 100%;
+    }
+
+    75% {
+        background-position: 0% 200%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
 .quote {
@@ -1597,9 +1780,32 @@ p {
 
 /* Contact Section */
 .contact-section {
-    background-color: #130428;
+    background-color: #0c031a74;
     color: #ffffff;
     padding: 80px 0;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 0;
+    backdrop-filter: blur(100px);
+    /* Needed to make ::before show above background */
+}
+
+.contact-section::before {
+    content: '';
+    position: absolute;
+    /* or 'fixed' if you want it to stay on screen scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 90% 90%, #2e0e6a95 0%, transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(59, 7, 77, 0.2) 0%, transparent 60%),
+        radial-gradient(circle at 30% 60%, #3f09505e 0%, transparent 60%);
+    pointer-events: none;
+    filter: blur(100px);
+    z-index: -1;
+    animation: move-glow 10s linear infinite;
 }
 
 .section-title {
@@ -1624,13 +1830,53 @@ p {
     font-size: 1.25rem;
     text-decoration: none;
     border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease;
+    position: relative;
+    display: inline-block;
 }
 
-.email-link:hover {
-    border-bottom-color: #5808a4;
-    color: #ffffff;
-    cursor: none;
+/* Shiny bottom border effect - always visible */
+.email-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            transparent 30%,
+            #5808a4 45%,
+            #640eb5 50%,
+            #680bc0 55%,
+            #800ded 60%,
+            transparent 90%,
+            transparent 100%);
+    background-size: 200% 100%;
+    border-radius: 1px;
+    opacity: 1;
+    animation: shineMove 3s linear infinite;
+}
+
+.email-link:hover::after {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            transparent 30%,
+            #5808a4 45%,
+            #7c3aed 50%,
+            rgb(140, 67, 208) 55%,
+            transparent 90%,
+            transparent 100%);
+    background-position: 200% 100%;
+}
+
+@keyframes shineMove {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 .social-links {
